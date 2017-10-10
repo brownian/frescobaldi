@@ -202,7 +202,7 @@ msgstr "З&міни"
 
 #: ../convert_ly.py:137
 msgid "&Diff"
-msgstr ""
+msgstr "&Різниця"
 
 #: ../convert_ly.py:138
 msgid "Run Again"
@@ -313,9 +313,8 @@ msgid "&Update with convert-ly..."
 msgstr "Поновити з допомогою convert-ly..."
 
 #: ../documentactions.py:206
-#, fuzzy
 msgid "Remove &Comments"
-msgstr "Видалити орнаменти"
+msgstr "Видалити коментарі"
 
 #: ../documentactions.py:207
 msgid "Remove &Articulations"
@@ -338,13 +337,12 @@ msgid "Remove &Dynamics"
 msgstr "Видалити динамічні позначки"
 
 #: ../documentactions.py:212
-#, fuzzy
 msgid "Remove &Fingerings"
-msgstr "Видалити орнаменти"
+msgstr "Видалити аплікатурні позначки"
 
 #: ../documentactions.py:213
 msgid "Remove Text &Markup (from music)"
-msgstr ""
+msgstr "Видалити текстові позначки (з музики)"
 
 #: ../documentcontextmenu.py:69 ../mainwindow.py:1198
 #: ../sessions/manager.py:130
@@ -353,7 +351,7 @@ msgstr "&Зберегти"
 
 #: ../documentcontextmenu.py:70 ../mainwindow.py:1199
 msgid "Save &As..."
-msgstr "Зберегти &як"
+msgstr "Зберегти &як..."
 
 #: ../documentcontextmenu.py:71 ../mainwindow.py:1209
 msgid "&Close"
@@ -650,6 +648,9 @@ msgid ""
 "\n"
 "{strerror} ({errno})"
 msgstr ""
+"{message}\n"
+"\n"
+"{strerror} ({errno})"
 
 #: ../mainwindow.py:432 ../mainwindow.py:629 ../mainwindow.py:721
 #: ../sessions/dialog.py:106
@@ -770,6 +771,8 @@ msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
+"Відкрити вікно для перевірки поточних документів на наявність "
+"зовнішніх змін чи видалень."
 
 #: ../mainwindow.py:1208
 msgid "Print Source..."
@@ -969,7 +972,6 @@ msgid "&Pitch"
 msgstr "&Тони"
 
 #: ../menu.py:342
-#, fuzzy
 msgctxt "submenu title"
 msgid "Rest"
 msgstr "Пауза"
@@ -1136,7 +1138,7 @@ msgstr "Шукати..."
 
 #: ../docbrowser/browser.py:156
 msgid "(local)"
-msgstr ""
+msgstr "(локально)"
 
 #: ../docbrowser/browser.py:158
 #, python-brace-format
@@ -1215,6 +1217,8 @@ msgid ""
 "An engrave job is running for the document \"{name}\".\n"
 "Do you want to abort the running job?"
 msgstr ""
+"Триває гравіювання дл документа \"{name}\".\n"
+"Справді бажаєте припинити гравіювання?"
 
 #: ../engrave/__init__.py:282
 #, python-brace-format
@@ -1237,6 +1241,12 @@ msgid ""
 "Please install LilyPond or, if you have already installed it, add it in the "
 "Preferences dialog."
 msgstr ""
+"Frescobaldi використовує LilyPond для гравіювання музики, "
+"але LilyPond не знайдено ні у стандартному розташуванні, "
+"ані на шляхах змінної PATH.\n"
+"\n"
+"Будь ласка, встановіть LilyPond чи, якщо вже встановлено, "
+"додайте його у Налаштуваннях."
 
 #: ../engrave/__init__.py:399
 msgid "Engrave"
@@ -1268,7 +1278,7 @@ msgstr "Пере&рвати процес гравіювання"
 
 #: ../engrave/__init__.py:406
 msgid "Automatic E&ngrave"
-msgstr ""
+msgstr "Гравіювати автоматично"
 
 #: ../engrave/__init__.py:407
 msgid "Open LilyPond &Data Directory"
@@ -1320,7 +1330,7 @@ msgstr "Видаляти проміжні файли"
 
 #: ../engrave/custom.py:147
 msgid "Embed Source Code (LilyPond >= 2.19.39)"
-msgstr ""
+msgstr "Вбудувати вихідний код (LilyPond >= 2.19.39)"
 
 #: ../engrave/custom.py:148 ../preferences/lilypond.py:334
 msgid "Run LilyPond with English messages"
@@ -1352,7 +1362,7 @@ msgstr ""
 
 #: ../engrave/custom.py:262
 msgid "PDF (EPS Backend)"
-msgstr ""
+msgstr "PDF (через EPS)"
 
 #: ../engrave/custom.py:268
 msgid "Encapsulated PostScript (EPS Backend)"
@@ -1360,7 +1370,7 @@ msgstr ""
 
 #: ../engrave/custom.py:274
 msgid "PNG (EPS Backend)"
-msgstr ""
+msgstr "PNG (через EPS)"
 
 #: ../engrave/lytools.py:40 ../engrave/lytools.py:41
 msgid "Available Fonts"
@@ -1445,6 +1455,8 @@ msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
 msgstr ""
+"Якщо відмічено, Frescobaldi попереджатиме про зміни та/чи видалення "
+"відкритих файлів ззовні."
 
 #: ../externalchanges/widget.py:157
 msgid "[deleted]"
@@ -1458,8 +1470,8 @@ msgstr "Не вдалося зберегти:"
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
 msgstr[0] "Будь ласка, збережіть документ операцією «Зберегти як...»"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[1] "Будь ласка, збережіть документ операцією «Зберегти як...»"
+msgstr[2] "Будь ласка, збережіть документи операцією «Зберегти як...»"
 
 #: ../externalchanges/widget.py:287
 msgid "Document on Disk"
@@ -1471,6 +1483,8 @@ msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"Документ: {url}\n"
+"Різниця між поточним документом та файлом на диску:"
 
 #: ../file_export/__init__.py:57
 msgctxt "dialog title"
@@ -1607,13 +1621,12 @@ msgstr ""
 
 #: ../file_import/abc.py:67 ../file_import/musicxml.py:103
 #: ../userguide/abc_import.md:20 ../userguide/musicxml_import.md:19
-#, fuzzy
 msgid "Import beaming"
 msgstr "Імпортувати перекладини "
 
 #: ../file_import/abc.py:69
 msgid "Run abc2ly"
-msgstr ""
+msgstr "Виконати abc2ly"
 
 #: ../file_import/midi.py:63 ../file_import/musicxml.py:104
 #: ../userguide/musicxml_import.md:20 ../userguide/midi_import.md:16
@@ -1622,11 +1635,11 @@ msgstr ""
 
 #: ../file_import/midi.py:65
 msgid "Run midi2ly"
-msgstr "Запустити midi2ly"
+msgstr "Виконати midi2ly"
 
 #: ../file_import/musicxml.py:99 ../userguide/musicxml_import.md:1
 msgid "Import Music XML"
-msgstr "Імпорт Music XML"
+msgstr "Імпортувати Music XML"
 
 #: ../file_import/musicxml.py:100 ../userguide/musicxml_import.md:16
 msgid "Import articulation directions"
@@ -1634,15 +1647,15 @@ msgstr ""
 
 #: ../file_import/musicxml.py:101 ../userguide/musicxml_import.md:17
 msgid "Import rest positions"
-msgstr ""
+msgstr "Імпортувати позиції пауз"
 
 #: ../file_import/musicxml.py:102 ../userguide/musicxml_import.md:18
 msgid "Import page layout"
-msgstr ""
+msgstr "Імпортувати макет сторінки"
 
 #: ../file_import/musicxml.py:105
 msgid "Comment out midi block"
-msgstr ""
+msgstr "Закоментувати блок midi"
 
 #: ../file_import/musicxml.py:107 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
@@ -1658,7 +1671,7 @@ msgstr ""
 
 #: ../file_import/musicxml.py:110
 msgid "Run musicxml2ly"
-msgstr ""
+msgstr "Виконати musicxml2ly"
 
 #: ../file_import/toly_dialog.py:119
 msgid "LilyPond version:"
@@ -1666,11 +1679,11 @@ msgstr "Версія LilyPond:"
 
 #: ../file_import/toly_dialog.py:121
 msgid "Reformat source"
-msgstr ""
+msgstr "Переформатувати вихідний код"
 
 #: ../file_import/toly_dialog.py:122
 msgid "Trim durations (Make implicit per line)"
-msgstr ""
+msgstr "Видалити тривалості (одна вказівка на рядок)"
 
 #: ../file_import/toly_dialog.py:123
 msgid "Remove fraction duration scaling"
@@ -1683,7 +1696,7 @@ msgstr ""
 #: ../layoutcontrol/__init__.py:37 ../userguide/engrave_layout.md:90
 #, fuzzy
 msgid "Annotate Spacing"
-msgstr "Увімкнути анотування відступів "
+msgstr "Увімкнути анотування відступів"
 
 #: ../layoutcontrol/__init__.py:38
 msgid ""
@@ -1706,9 +1719,8 @@ msgid "Color explicit directions"
 msgstr "Підсвічувати вказівки напрямків"
 
 #: ../layoutcontrol/__init__.py:48
-#, fuzzy
 msgid "Highlight elements that are explicitly switched up- or downwards"
-msgstr "Підсвічувати елементи, що... вгору чи вниз"
+msgstr "Підсвічувати задані вказівки напрямку елементів"
 
 #: ../layoutcontrol/__init__.py:51 ../userguide/engrave_layout.md:50
 #: ../userguide/engrave_layout_configure.md:53
@@ -1764,11 +1776,11 @@ msgstr ""
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:107
 #: ../userguide/browser.py:91 ../userguide/browser.py:92
 msgid "Help"
-msgstr ""
+msgstr "Допомога"
 
 #: ../layoutcontrol/widget.py:101
 msgid "Verbose output"
-msgstr ""
+msgstr "Докладні повідомлення"
 
 #: ../layoutcontrol/widget.py:102
 msgid "Run LilyPond with verbose output"
@@ -1943,7 +1955,6 @@ msgid "flats"
 msgstr "бемолі"
 
 #: ../midiinput/widget.py:186
-#, fuzzy
 msgid "Chord mode"
 msgstr "Режим акордів"
 
@@ -3807,9 +3818,8 @@ msgid "Octave Check"
 msgstr "Контроль октави"
 
 #: ../preferences/fontscolors.py:517
-#, fuzzy
 msgid "Fingering"
-msgstr "Пальці"
+msgstr "Аплікатура"
 
 #. L10N: For String instruments like Guitar
 #: ../preferences/fontscolors.py:519
