@@ -361,16 +361,6 @@ msgctxt "dialog title"
 msgid "Move to include file"
 msgstr ""
 
-#: ../cut_assign.py:135 ../mainwindow.py:433 ../mainwindow.py:547
-#: ../mainwindow.py:610 ../mainwindow.py:630 ../mainwindow.py:723
-#: ../mainwindow.py:792 ../sessions/dialog.py:104 ../sessions/dialog.py:125
-#, python-brace-format
-msgid ""
-"{message}\n"
-"\n"
-"{strerror} ({errno})"
-msgstr ""
-
 #: ../cut_assign.py:136 ../mainwindow.py:548 ../mainwindow.py:611
 #: ../mainwindow.py:793 ../sessions/dialog.py:126
 #, python-brace-format
