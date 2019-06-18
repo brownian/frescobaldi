@@ -23,6 +23,7 @@ Currently only list local branches, allowing one to switch to that branch.
 """
 
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction, QActionGroup, QMenu, QMessageBox
 
 import app
@@ -34,6 +35,9 @@ from .gitrepo import GitError
 class GitMenu(QMenu):
     def __init__(self, mainwindow):
         super(GitMenu, self).__init__(mainwindow)
+        # dummy action to work around a Qt bug on macOS
+        # https://stackoverflow.com/questions/26004830/qt-change-application-qmenubar-contents-on-mac-os-x
+        self.addAction(QAction(mainwindow))
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
 
@@ -41,10 +45,12 @@ class GitMenu(QMenu):
         self.setTitle(_('menu title', '&Git'))
 
     def populate(self):
+        app.qApp.setOverrideCursor(Qt.WaitCursor)
         self.clear()
         mainwindow = self.parentWidget()
         for a in GitBranchGroup.instance(mainwindow).actions():
             self.addAction(a)
+        app.qApp.restoreOverrideCursor()
 
 
 class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
@@ -108,7 +114,8 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
         self._acts[branch].setText(name)
 
     def slotTriggered(self, action):
-        msgBox = QMessageBox()
+        """Handle click on a listed branch.
+        Try to checkout the new branch and request a restart afterwards."""
         for branch, act in self._acts.items():
             if act == action:
                 new_branch = branch
@@ -117,14 +124,12 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
             return
         try:
             vcs.app_repo.checkout(new_branch)
-            msgBox.setText(_("Checkout Successful"))
-            msgBox.setInformativeText(_("Successfully checked out branch {name}.\n"
-                "Changes will take effect after restart.\n"
-                "Do you want to restart now?").format(name=new_branch))
-            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            if msgBox.exec_() == QMessageBox.Ok:
-                self.parent().restart()
+            from widgets.restartmessage import suggest_restart
+            suggest_restart(
+                _("Successful checkout of branch\n{}".format(new_branch)))
         except GitError as giterror:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Critical)
             msgBox.setText(_("Git Checkout Error"))
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()

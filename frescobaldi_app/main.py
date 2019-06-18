@@ -72,6 +72,8 @@ def parse_commandline():
         help=_("List the session names and exit"))
     parser.add_argument('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
+    parser.add_argument('--python-ly', type=str, metavar=_("STR"), default="",
+        help=_("Path to python-ly"))
     parser.add_argument('files', metavar=_("file"), nargs='*',
         help=_("File to be opened"))
 
@@ -110,41 +112,6 @@ def url(arg):
         return QUrl.fromLocalFile(os.path.abspath(arg))
 
 
-def patch_pyqt():
-    """Patch PyQt classes to strip trailing null characters on Python 2
-
-    It works around a bug triggered by Unicode characters above 0xFFFF.
-    """
-    if sys.version_info >= (3, 3):
-        return
-
-    old_toLocalFile = QUrl.toLocalFile
-    QUrl.toLocalFile = lambda url: old_toLocalFile(url).rstrip('\0')
-
-    old_toString = QUrl.toString
-    QUrl.toString = lambda *args: old_toString(*args).rstrip('\0')
-
-    old_path = QUrl.path
-    QUrl.path = lambda self: old_path(self).rstrip('\0')
-
-    old_arguments = QApplication.arguments
-    QApplication.arguments = staticmethod(
-        lambda: [arg.rstrip('\0') for arg in old_arguments()])
-
-    from PyQt5.QtWidgets import QFileDialog
-    old_getOpenFileNames = QFileDialog.getOpenFileNames
-    QFileDialog.getOpenFileNames = staticmethod(
-        lambda *args: [f.rstrip('\0') for f in old_getOpenFileNames(*args)])
-
-    old_getOpenFileName = QFileDialog.getOpenFileName
-    QFileDialog.getOpenFileName = staticmethod(
-        lambda *args: old_getOpenFileName(*args).rstrip('\0'))
-
-    old_getSaveFileName = QFileDialog.getSaveFileName
-    QFileDialog.getSaveFileName = staticmethod(
-        lambda *args: old_getSaveFileName(*args).rstrip('\0'))
-
-
 def check_ly():
     """Check if ly is installed and has the correct version.
 
@@ -159,14 +126,13 @@ def check_ly():
     Importing ly.pkginfo is not expensive.
 
     """
-    ly_required = (0, 9, 4)
     try:
         import ly.pkginfo
         version = tuple(map(int, re.findall(r"\d+", ly.pkginfo.version)))
     except (ImportError, AttributeError):
         pass
     else:
-        if version >= ly_required:
+        if version >= appinfo.required_python_ly_version:
             return
     from PyQt5.QtWidgets import QMessageBox
     QMessageBox.critical(None, _("Can't run Frescobaldi"), _(
@@ -189,8 +155,14 @@ def main():
         sys.stdout.write(debuginfo.version_info_string() + '\n')
         sys.exit(0)
 
+    if args.python_ly:
+        # The python-ly path has to be inserted at the *second* position
+        # because the first element in sys.path is the directory of the invoked
+        # script (an information we need in determining if Frescobaldi is run
+        # from its Git repository)
+        sys.path.insert(1, args.python_ly)
+
     check_ly()
-    patch_pyqt()
 
     if args.list_sessions:
         import sessions
@@ -253,7 +225,7 @@ def main():
     for u in urls:
         doc = win.openUrl(u, args.encoding, ignore_errors=True)
         if not doc:
-            doc = document.Document(u, args.encoding)
+            doc = document.EditorDocument(u, args.encoding)
 
     # were documents loaded?
     if not doc:
@@ -275,5 +247,3 @@ def main():
         cursor.setPosition(pos)
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()
-
-
